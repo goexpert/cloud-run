@@ -1,0 +1,9 @@
+GET http://localhost:8080/cep/03063000
+Content-Type: application/json
+Accept: application/json
+
+###
+GET http://localhost:8080/cep/00000000
+Content-Type: application/json
+Accept: application/json
+

@@ -1,0 +1,77 @@
+services:
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - lab-observabilidade
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    restart: always
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"
+    networks:
+      - lab-observabilidade
+
+  service-a:
+    image: golang:1.22
+    # image: registry.gitlab.com/devopsrt71/container-images/golang.1.22.8-arm64
+    container_name: service-a
+    ports:
+      - "8080:8080"
+    environment:
+      - LO_PORT=8080
+      - SB_HOST=service-b
+      - SB_PORT=8080
+    volumes:
+      - ./lab-observabilidade-service-a:/app
+      # - ../lab-observabilidade-service-a:/app
+      # - ./:/app/pkglab
+    command: >
+      sh -c "cd /app &&
+      go run cmd/api/main.go"
+    # command: ["sleep", "infinity"]
+    depends_on:
+      - zipkin
+    networks:
+      - lab-observabilidade
+
+  service-b:
+    image: golang:1.22
+    # image: registry.gitlab.com/devopsrt71/container-images/golang.1.22.8-arm64
+    container_name: service-b
+    ports:
+      - "8081:8080"
+    environment:
+      - LO_PORT=8080
+      - WEATHER_TOKEN=d5a4cb1d02924fda961141910240111
+    volumes:
+      - ./lab-observabilidade-service-b:/app
+      # - ../lab-observabilidade-service-b:/app
+      # - ./:/app/pkglab
+    command: >
+      sh -c "cd /app &&
+      go run cmd/api/main.go"
+    # command: ["sleep", "infinity"]
+    depends_on:
+      - zipkin
+    networks:
+      - lab-observabilidade
+
+  # pkg:
+  #   image: registry.gitlab.com/devopsrt71/container-images/golang.1.22.8-arm64
+  #   container_name: pkg
+  #   volumes:
+  #     - ./:/app
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - lab-observabilidade
+
+networks:
+  lab-observabilidade:
+    driver: bridge

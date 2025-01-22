@@ -1,10 +1,10 @@
 FROM golang:1.22.8 as builder
 WORKDIR /app
 COPY . .
-RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o cloud-run
+RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o cloudrun cmd/api/main.go
 
-FROM scratch
+FROM ubuntu
 WORKDIR /app
-COPY --from=builder /app/cloud-run .
-ENTRYPOINT [ "./cloud-run" ]
+COPY --from=builder /app/cloudrun /app/cloudrun
+CMD [ "/app/cloudrun" ]
 

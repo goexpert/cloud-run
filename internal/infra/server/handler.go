@@ -35,13 +35,13 @@ func GetWeatherViaCepHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 
 		code := http.StatusInternalServerError
-		if err.Error() == "cep não encontrado" {
+		if err.Error() == "opencep.com: Not Found" {
 			code = http.StatusNotFound
 		}
 
 		w.WriteHeader(code)
 		json.NewEncoder(w).Encode(&lab.DtoError{Message: err.Error()})
-		w.Write([]byte(err.Error()))
+		// w.Write([]byte(err.Error()))
 		return
 	}
 

@@ -22,7 +22,7 @@ func main() {
 	defer stop()
 
 	webServer := lab.NewServer(os.Getenv("LO_PORT"))
-	webServer.AddHandler("GET /cep", server.GetWeatherViaCepHandler)
+	webServer.AddHandler("GET /cep/{cep}", server.GetWeatherViaCepHandler)
 	srvErr := make(chan error, 1)
 	go func() {
 		srvErr <- webServer.Run()
