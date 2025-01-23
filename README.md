@@ -1,8 +1,8 @@
-= cloud-run
+# cloud-run
 
 laboratório cloud run da pós go expert
 
-== Solução:
+## Solução:
 
 Para consultar a API publicada no Cloud Run do GCP, basta executar:
 
@@ -33,11 +33,11 @@ curl http://localhost:8080/cep/03063000
 
 
 
-== Objetivo: 
+## Objetivo: 
 
 Desenvolver um sistema em Go que receba um CEP, identifica a cidade e retorna o clima atual (temperatura em graus celsius, fahrenheit e kelvin). Esse sistema deverá ser publicado no Google Cloud Run.
 
-== Requisitos:
+## Requisitos:
 
 O sistema deve receber um CEP válido de 8 digitos.
 
@@ -59,7 +59,7 @@ O sistema deve responder adequadamente nos seguintes cenários:
 
 Deverá ser realizado o deploy no Google Cloud Run.
 
-== Dicas:
+## Dicas:
 
 Utilize a API viaCEP (ou similar) para encontrar a localização que deseja consultar a temperatura: https://viacep.com.br/
 
@@ -73,7 +73,7 @@ Para realizar a conversão de Celsius para Kelvin, utilize a seguinte fórmula: 
 * Sendo C = Celsius
 * Sendo K = Kelvin
 
-== Entrega:
+## Entrega:
 
 * O código-fonte completo da implementação.
 * Testes automatizados demonstrando o funcionamento.
