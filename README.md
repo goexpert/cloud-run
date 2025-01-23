@@ -4,11 +4,7 @@ laboratório cloud run da pós go expert
 
 ## Solução:
 
-Para consultar a API publicada no Cloud Run do GCP, basta executar:
-
-```shell
-curl https://cloud-run-682174873413.us-central1.run.app/cep/03063000
-```
+a API publicada no Cloud Run do GCP encontra-se em [https://cloud-run-682174873413.us-central1.run.app/cep/03063000](https://cloud-run-682174873413.us-central1.run.app/cep/03063000)
 
 O resultado será algo do tipo:
 
