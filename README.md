@@ -6,22 +6,19 @@ laboratório cloud run da pós go expert
 
 Para consultar a API publicada no Cloud Run do GCP, basta executar:
 
-[source,shell]
-----
+```shell
 curl https://cloud-run-682174873413.us-central1.run.app/cep/03063000
-----
+```
 
 O resultado será algo do tipo:
 
-[source,shell]
-----
+```shell
 {"city":"São Paulo","temp_c":23.4,"temp_f":74.1,"temp_k":296.4}
-----
+```
 
 Para a reprodução em ambiente local, basta executar o seguinte:
 
-[source,shell]
-----
+```shell
 git clone https://github.com/goexpert/cloud-run.git
 
 cd cloud-run
@@ -29,7 +26,7 @@ cd cloud-run
 docker compose up -d
 
 curl http://localhost:8080/cep/03063000
-----
+```
 
 
 
