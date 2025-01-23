@@ -12,8 +12,8 @@ import (
 
 func GetLogradouro(ctx context.Context, cep lab.CepDto, client *http.Client) (*lab.LogradouroDto, error) {
 
-	// _url := "https://viacep.com.br/ws/" + cep.Cep + "/json/"
-	_url := "https://opencep.com/v1/" + cep.Cep + ".json"
+	_url := "https://viacep.com.br/ws/" + cep.Cep + "/json/"
+	// _url := "https://opencep.com/v1/" + cep.Cep + ".json"
 
 	wClient, err := lab.NewWebclient(ctx, client, http.MethodGet, _url, nil)
 	if err != nil {

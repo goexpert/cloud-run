@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/goexpert/cloud-run/internal/entity"
 	"github.com/goexpert/cloud-run/internal/usecase"
@@ -27,7 +28,6 @@ func GetWeatherViaCepHandler(w http.ResponseWriter, r *http.Request) {
 
 		w.WriteHeader(code)
 		json.NewEncoder(w).Encode(&lab.DtoError{Message: err.Error()})
-		w.Write([]byte(err.Error()))
 		return
 	}
 
@@ -35,13 +35,15 @@ func GetWeatherViaCepHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 
 		code := http.StatusInternalServerError
-		if err.Error() == "opencep.com: Not Found" {
+		message := err.Error()
+
+		if strings.Contains(strings.ToLower(err.Error()), "not found") {
 			code = http.StatusNotFound
+			message = "CEP não encontrado"
 		}
 
 		w.WriteHeader(code)
-		json.NewEncoder(w).Encode(&lab.DtoError{Message: err.Error()})
-		// w.Write([]byte(err.Error()))
+		json.NewEncoder(w).Encode(&lab.DtoError{Message: message})
 		return
 	}
 
